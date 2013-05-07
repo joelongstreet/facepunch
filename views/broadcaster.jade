@@ -1,0 +1,17 @@
+extends layout
+
+block content
+
+    .row-fluid.loading
+        .loading-graphic
+    .row-fluid.form
+        .row-fluid
+            p Visit facepunch.joelongstreet.com on a desktop browser and enter the code you receive within the form below.
+        form.form-search.row-fluid
+            input.input-medium(type='text')
+            button#start.btn.btn-danger OK
+    .row-fluid.ok-go
+        h2 Start Punching!!!
+    .row-fluid.error
+        h2 There was an error
+        button#retry.btn.btn-danger Retry

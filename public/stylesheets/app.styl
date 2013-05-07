@@ -3,9 +3,9 @@ $color-accent       = #D94436
 $color-accent2      = #A62424
 $color-relief       = #F2D8A7
 $color-relief2      = #D9A86C
-
 $font-primary       = 'Signika Negative', sans-serif
 $font-accent        = 'Shojumaru', cursive
+
 
 body
     background          $color-relief url('/images/noise.png') repeat
@@ -28,19 +28,21 @@ body
         background-color darken($color-accent, 80%)
 
 
-
 h1
-    color               $color-accent
     margin              50px 0
-    font-family         $font-accent
     font-size           4.5em
     text-align          center
+
+h1, h2, h3, h4, h5, h6
+    font-family         $font-accent
+    color               $color-accent
     text-shadow         0 1px 0px $color-accent2
 
 p
     font-size           1.75em
     color               $color-primary
     text-align          center
+
 
 .box
     position            relative
@@ -73,3 +75,5 @@ p
     text-align          center
     color               $color-accent
     text-shadow         0 1px 0px $color-accent2
+
+@import 'broadcaster'
