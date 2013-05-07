@@ -5,3 +5,11 @@ socket.on('punch', function(data){
     var intensity   = Math.round(data.intensity/threshold);
     $('body').addClass('hit_' + intensity);
 });
+
+$(function(){
+    $('#victim').dropzone({
+        url : '/trash',
+        thumbnailWidth : 500,
+        thumbnailHeight : 500
+    })
+});

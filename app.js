@@ -38,5 +38,8 @@ app.get('/', function(req, res){
 app.get('/broadcaster', routes.broadcaster.index);
 app.get('/broadcaster/listen', routes.broadcaster.listen)
 app.get('/listener', routes.listener.index);
+app.post('/trash', function(req, res){
+    res.send({})
+});
 
 console.log('Express server listening on port ' + app.get('port'));

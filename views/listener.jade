@@ -4,6 +4,7 @@ extends layout
 block head
 
     script(src='/javascripts/listener.js')
+    script(src='/javascripts/dropzone.js')
 
 
 block content
@@ -15,7 +16,7 @@ block content
             p You've punched this face <span id='count'>134</span> times
 
         .row-fluid
-            .box.span6.offset3
+            #victim.box.span6.offset3
                 p Drag Victim Here
 
         p Your special code is

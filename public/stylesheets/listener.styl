@@ -1,5 +1,5 @@
 #listener
-    .box
+    #victim
         position            relative
         background-color    $color-relief
         border              5px solid $color-accent2
@@ -7,6 +7,7 @@
         margin-bottom       50px
         outline             7px solid $color-accent
         height              450px
+        position            relative
 
         &:before
             content         ''
@@ -22,6 +23,16 @@
             color           $color-relief2
             padding-top     180px
             font-size       2em
+
+        .details .filename, .details .size, .progress, .success-mark, .error-mark, .error-message
+            display         none
+            top             0
+
+        img
+            position        absolute
+            width           100%
+            top             0
+
 
     .code-info
         margin-top          20px
