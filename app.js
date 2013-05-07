@@ -1,8 +1,9 @@
 var express = require('express');
-var http    = require('http');
 var path    = require('path');
+var app     = express()
+var server  = app.listen(3000);
+var io      = require('socket.io').listen(server);
 
-var app     = express();
 var routes  = {
     broadcaster : require('./routes/broadcaster'),
     listener    : require('./routes/listener')
@@ -38,6 +39,4 @@ app.get('/broadcaster', routes.broadcaster.index);
 app.get('/broadcaster/listen', routes.broadcaster.listen)
 app.get('/listener', routes.listener.index);
 
-http.createServer(app).listen(app.get('port'), function(){
-    console.log('Express server listening on port ' + app.get('port'));
-});
+console.log('Express server listening on port ' + app.get('port'));
