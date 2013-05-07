@@ -1,0 +1,75 @@
+$color-primary      = #458C6B
+$color-accent       = #D94436
+$color-accent2      = #A62424
+$color-relief       = #F2D8A7
+$color-relief2      = #D9A86C
+
+$font-primary       = 'Signika Negative', sans-serif
+$font-accent        = 'Shojumaru', cursive
+
+body
+    background          $color-relief url('/images/noise.png') repeat
+    transition          .1s background-color linear
+    font-family         $font-primary
+
+    &.hit_1
+        background-color lighten($color-accent, 80%)
+    &.hit_2
+        background-color lighten($color-accent, 50%)
+    &.hit_3
+        background-color lighten($color-accent, 20%)
+    &.hit_4
+        background-color $color-accent
+    &.hit_5
+        background-color darken($color-accent, 20%)
+    &.hit_6
+        background-color darken($color-accent, 50%)
+    &.hit_7
+        background-color darken($color-accent, 80%)
+
+
+
+h1
+    color               $color-accent
+    margin              50px 0
+    font-family         $font-accent
+    font-size           4.5em
+    text-align          center
+    text-shadow         0 1px 0px $color-accent2
+
+p
+    font-size           1.75em
+    color               $color-primary
+    text-align          center
+
+.box
+    position            relative
+    background-color    $color-relief
+    border              5px solid $color-accent2
+    margin              25px 0 50px
+    outline             7px solid $color-accent
+    height              450px
+
+    &:before
+        content         ''
+        z-index         -1
+        top             -18px
+        left            -18px
+        border          18px solid $color-accent2
+        position        absolute
+        width           100%
+        height          100%
+
+    p
+        color           $color-relief2
+        padding-top     180px
+        font-size       2em
+
+.code-info
+    margin-top          20px
+
+.code
+    font-size           2.5em
+    text-align          center
+    color               $color-accent
+    text-shadow         0 1px 0px $color-accent2
