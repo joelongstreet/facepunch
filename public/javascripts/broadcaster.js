@@ -1,8 +1,7 @@
-var socket = io.connect('/');
+var socket  = io.connect('/');
+var chars   = { 48: 0, 49: 1, 50: 2, 51: 3, 52: 4, 53: 5, 54: 6, 55: 7, 56: 8, 57: 9 };
 
 $(function(){
-
-
     $('#start').click(function(){
         $.ajax({
             type    : 'GET',
@@ -22,8 +21,36 @@ $(function(){
         $('.error').hide();
     });
 
+    $('#secret')[0].addEventListener('input', inputHelper);
+    window.addEventListener('keydown', keydownHelper); 
 });
+
 
 window.addEventListener('shake', function(e){
     socket.emit('punch', { intensity : e.intensity });
 }, false);
+
+
+var inputHelper = function(e){
+    e.preventDefault();
+    window.removeEventListener('keydown', keydownHelper)
+};
+
+
+var keydownHelper = function(e){
+    e.preventDefault();
+    $('#secret')[0].removeEventListener('input', inputHelper); 
+
+    var val = $('#secret').val()
+
+    if (e.keyCode === 8 && val.length) {
+        $('#secret').val(val.slice(0, val.length - 1))
+        return;
+    }
+
+    // If not a number, do nada
+    if (typeof chars[e.keyCode] === 'undefined') { return; }
+
+    val += chars[e.keyCode];
+    $('#secret').val(val);
+};

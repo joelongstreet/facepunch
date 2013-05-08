@@ -104,7 +104,7 @@ var getCodeIndex = function(code, list){
 
 
 var randomString = function(length){
-    var charSet     = 'abcdefghjkmnpqrstuvwxyz23456789';
+    var charSet     = '1234567890';
     var rando       = '';
     var iterator    = 0;
 

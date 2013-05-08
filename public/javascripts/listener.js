@@ -1,10 +1,19 @@
 var socket = io.connect('/');
+var count  = 1;
 
 socket.on('punch', function(data){
-    var threshold   = 100;
-    var intensity   = Math.round(data.intensity/threshold);
-    $('body').addClass('hit_' + intensity);
+    console.log(data);
+    //var threshold   = 100;
+    //var intensity   = Math.round(data.intensity/threshold);
+    var intensity   = Math.floor(Math.random() * 7) + 1;
+    var klass       = 'hit_' + intensity;
+    $('body').addClass(klass);
+    setTimeout(function(){
+        $('body').removeClass(klass);
+    }, 100);
+    $('#count').text(count++);
 });
+
 
 $(function(){
     $('#victim').dropzone({
