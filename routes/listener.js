@@ -1,15 +1,22 @@
+var availableCodes = [];
+
 exports.index = function(req, res){
     var generateCode = function(next){
         var code = randomString(5);
-        if(connectedCodes.indexOf(code) == -1){
-            next(code);
-        } else {
-            generateCode(next);
-        }
+        availableCodes.indexOf(code) == -1 ? next(code) : generateCode(next);
     };
 
     generateCode(function(code){
+        availableCodes.push(code);
         res.render('listener', { code : code });
+
+        // Remove from available codes if no one ever used it
+        setTimeout(function(){
+           var placement = availableCodes.indexOf(code); 
+           if(placement != -1){
+                availableCodes.splice(placement, 1)
+           }
+        }, 300000);
     });
 };
 
