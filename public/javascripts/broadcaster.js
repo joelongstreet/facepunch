@@ -2,14 +2,12 @@ var socket = io.connect('/');
 
 $(function(){
 
+
     $('#start').click(function(){
         $.ajax({
             type    : 'GET',
-            url     : 'broadcast/send',
-            data    : {
-                broadcastId : socket.socket.sessionid,
-                secret      : $('#secret').text().trim()
-            }, success : function(data){
+            url     : '/broadcaster/setSocketId/' + socket.socket.sessionid + '/' + $('#secret').val().trim(),
+            success : function(data){
                 $('.form').hide();
                 $('.ok-go').show();
             }, error : function(err, msg){

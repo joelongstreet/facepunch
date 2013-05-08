@@ -24,7 +24,7 @@ exports.setListenerId = function(req, res){
     var codeObject = codeLookup(req.params.code, pendingCodes);
     if(codeObject){
         codeObject.listenerId = req.params.socketId;
-        res.send({ success : 'success' })
+        res.send({ success : 'I am ready for you to enter the CODEZ' })
     } else{
         res.send(404);
     }
