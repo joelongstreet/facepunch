@@ -49,7 +49,6 @@ exports.matchBroadcastToListener = function(req, res){
 };
 
 
-// Return the code object
 var codeLookup = function(code, list){
     var result = false;
     for(var i=0; i<list.length; i++){
@@ -62,7 +61,6 @@ var codeLookup = function(code, list){
 };
 
 
-// Find the index of a code in the list
 var getCodeIndex = function(code, list){
     var index = -1;
 
