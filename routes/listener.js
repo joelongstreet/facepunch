@@ -19,17 +19,26 @@ exports.index = function(req, res){
     });
 };
 
-
-//clearTimeout(codeObject.autoClear);
-//pendingCodes.splice(getCodeIndex(req.params.code, pendingCodes), 1);
-
 exports.setListenerId = function(req, res){
     var codeObject = codeLookup(req.params.code, pendingCodes);
     if(codeObject){
         codeObject.listenerId = req.params.socketId;
         res.send({ success : 'success' })
     } else{
-        res.send(404)
+        res.send(404);
+    }
+};
+
+
+exports.matchBroadcastToListener = function(req, res){
+    var codeObject = codeLookup(req.params.code, pendingCodes);
+    if(codeObject){
+        clearTimeout(codeObject.autoClear);
+        pendingCodes.splice(getCodeIndex(req.params.code, pendingCodes), 1);
+        codeObject.broadcastId = req.params.socketId;
+        res.send({ success : 'success' });
+    } else{
+        res.send(404);
     }
 };
 

@@ -22,7 +22,7 @@ $(function(){
             success : function(data){
                 console.log(data);
             },
-            error   : function(){
+            error   : function(err){
                 alert('Some error occured, refresh your browser and try this again');
             }
         });
