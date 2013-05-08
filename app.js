@@ -3,13 +3,9 @@ var path    = require('path');
 var app     = express()
 var server  = app.listen(3000);
 var io      = require('socket.io').listen(server);
+var routes  = require('./routes');
 
 io.set('log level', 1); 
-
-var routes  = {
-    broadcaster : require('./routes/broadcaster'),
-    listener    : require('./routes/listener')
-};
 
 
 app.set('port', process.env.PORT || 3000);
@@ -37,10 +33,10 @@ app.get('/', function(req, res){
     }
 });
 
-//app.get('/broadcaster', routes.broadcaster.index);
-//app.get('/broadcaster/lookup', routes.broadcaster.lookup)
-app.get('/listener', routes.listener.index);
-app.get('/listener/setSocketId/:socketId/:code', routes.listener.setListenerId);
+app.get('/listener', routes.listener);
+app.get('/broadcaster', routes.broadcaster);
+app.get('/listener/setSocketId/:socketId/:code', routes.setListenerId);
+app.get('/broadcaster/setSocketId/:socketId/:code', routes.matchBroadcastToListener);
 app.post('/trash', function(req, res){
     res.send({})
 });

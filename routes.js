@@ -1,7 +1,7 @@
 var pendingCodes    = [];
 var activeCodes     = [];
 
-exports.index = function(req, res){
+exports.listener = function(req, res){
     var generateCode = function(next){
         var code = randomString(5);
         codeLookup(code, pendingCodes) ? generateCode(next) : next(code);
@@ -19,6 +19,7 @@ exports.index = function(req, res){
     });
 };
 
+
 exports.setListenerId = function(req, res){
     var codeObject = codeLookup(req.params.code, pendingCodes);
     if(codeObject){
@@ -27,6 +28,11 @@ exports.setListenerId = function(req, res){
     } else{
         res.send(404);
     }
+};
+
+
+exports.broadcaster = function(req, res){
+    res.render('broadcaster');
 };
 
 
