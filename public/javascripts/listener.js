@@ -11,5 +11,20 @@ $(function(){
         url : '/trash',
         thumbnailWidth : 500,
         thumbnailHeight : 500
-    })
+    });
+
+    // Pair the broadcast client with the server
+    // this timeout has got to go, i would thinkg there should be a ready event?
+    setTimeout(function(){
+        $.ajax({
+            type    : 'GET',
+            url     : '/listener/setSocketId/' + socket.socket.sessionid + '/' + $('#code').text().trim(),
+            success : function(data){
+                console.log(data);
+            },
+            error   : function(){
+                alert('Some error occured, refresh your browser and try this again');
+            }
+        });
+    }, 500);
 });

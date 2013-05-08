@@ -1,24 +1,65 @@
-var availableCodes = [];
+var pendingCodes    = [];
+var activeCodes     = [];
 
 exports.index = function(req, res){
     var generateCode = function(next){
         var code = randomString(5);
-        availableCodes.indexOf(code) == -1 ? next(code) : generateCode(next);
+        codeLookup(code, pendingCodes) ? generateCode(next) : next(code);
     };
 
     generateCode(function(code){
-        availableCodes.push(code);
-        res.render('listener', { code : code });
+        pendingCodes.push({
+            code        : code,
+            autoClear   : setTimeout(function(){
+                pendingCodes.splice(getCodeIndex(code, pendingCodes), 1);
+            }, 300000)
+        });
 
-        // Remove from available codes if no one ever used it
-        setTimeout(function(){
-           var placement = availableCodes.indexOf(code); 
-           if(placement != -1){
-                availableCodes.splice(placement, 1)
-           }
-        }, 300000);
+        res.render('listener', { code : code });
     });
 };
+
+
+//clearTimeout(codeObject.autoClear);
+//pendingCodes.splice(getCodeIndex(req.params.code, pendingCodes), 1);
+
+exports.setListenerId = function(req, res){
+    var codeObject = codeLookup(req.params.code, pendingCodes);
+    if(codeObject){
+        codeObject.listenerId = req.params.socketId;
+        res.send({ success : 'success' })
+    } else{
+        res.send(404)
+    }
+};
+
+
+// Return the code object
+var codeLookup = function(code, list){
+    var result = false;
+    for(var i=0; i<list.length; i++){
+        if(list[i].code == code){
+            result = list[i]
+        }
+    }
+
+    return result;
+};
+
+
+// Find the index of a code in the list
+var getCodeIndex = function(code, list){
+    var index = -1;
+
+    for(var i = 0; i<list.length; i++){
+        if(list[i].code == code){
+            index = i
+        }
+    }
+
+    return index;
+};
+
 
 var randomString = function(length){
     var charSet     = 'abcdefghjkmnpqrstuvwxyz23456789';
@@ -32,4 +73,4 @@ var randomString = function(length){
     }
 
     return rando;
-}
+};

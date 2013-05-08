@@ -37,9 +37,10 @@ app.get('/', function(req, res){
     }
 });
 
-app.get('/broadcaster', routes.broadcaster.index);
-app.get('/broadcaster/listen', routes.broadcaster.listen)
+//app.get('/broadcaster', routes.broadcaster.index);
+//app.get('/broadcaster/lookup', routes.broadcaster.lookup)
 app.get('/listener', routes.listener.index);
+app.get('/listener/setSocketId/:socketId/:code', routes.listener.setListenerId);
 app.post('/trash', function(req, res){
     res.send({})
 });
