@@ -1,6 +1,16 @@
 var pendingCodes    = [];
 var activeCodes     = [];
 
+
+exports.redirect = function(req, res){
+    if (/mobile/i.test(req.headers['user-agent'])) {
+        res.redirect('/broadcaster');
+    } else {
+        res.redirect('/listener');
+    }
+};
+
+
 exports.listener = function(req, res){
     var generateCode = function(next){
         var code = randomString(5);
@@ -42,11 +52,16 @@ exports.matchBroadcastToListener = function(req, res){
         clearTimeout(codeObject.autoClear);
         pendingCodes.splice(getCodeIndex(req.params.code, pendingCodes), 1);
         codeObject.broadcastId = req.params.socketId;
+        activeCodes.push(codeObject);
         res.send({ success : 'success' });
     } else{
         res.send(404);
     }
 };
+
+
+exports.getActiveCodes = function(){ return activeCodes };
+exports.trash = function(req, res) { res.send({}) };
 
 
 var codeLookup = function(code, list){
