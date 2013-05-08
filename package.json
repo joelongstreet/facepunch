@@ -1,6 +1,6 @@
 {
   "name": "facepunch",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "private": true,
   "scripts": {
     "start": "node app.js"
@@ -10,5 +10,9 @@
     "jade": "*",
     "stylus": "~0.32.1",
     "socket.io": "~0.9.14"
+  },
+  "subdomain": "facepunch",
+  "engines": {
+    "node": "0.8.x"
   }
 }
