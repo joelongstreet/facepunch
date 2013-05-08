@@ -1,5 +1,5 @@
-var pendingCodes    = [];
-var activeCodes     = [];
+var pendingClients  = [];
+var activeClients   = [];
 
 
 exports.redirect = function(req, res){
@@ -14,14 +14,14 @@ exports.redirect = function(req, res){
 exports.listener = function(req, res){
     var generateCode = function(next){
         var code = randomString(5);
-        codeLookup(code, pendingCodes) ? generateCode(next) : next(code);
+        codeLookup(code, pendingClients) ? generateCode(next) : next(code);
     };
 
     generateCode(function(code){
-        pendingCodes.push({
+        pendingClients.push({
             code        : code,
             autoClear   : setTimeout(function(){
-                pendingCodes.splice(getCodeIndex(code, pendingCodes), 1);
+                pendingClients.splice(getCodeIndex(code, pendingClients), 1);
             }, 300000)
         });
 
@@ -31,7 +31,7 @@ exports.listener = function(req, res){
 
 
 exports.setListenerId = function(req, res){
-    var codeObject = codeLookup(req.params.code, pendingCodes);
+    var codeObject = codeLookup(req.params.code, pendingClients);
     if(codeObject){
         codeObject.listenerId = req.params.socketId;
         res.send({ success : 'I am ready for you to enter the CODEZ' })
@@ -47,12 +47,12 @@ exports.broadcaster = function(req, res){
 
 
 exports.matchBroadcastToListener = function(req, res){
-    var codeObject = codeLookup(req.params.code, pendingCodes);
+    var codeObject = codeLookup(req.params.code, pendingClients);
     if(codeObject){
         clearTimeout(codeObject.autoClear);
-        pendingCodes.splice(getCodeIndex(req.params.code, pendingCodes), 1);
+        pendingClients.splice(getCodeIndex(req.params.code, pendingClients), 1);
         codeObject.broadcastId = req.params.socketId;
-        activeCodes.push(codeObject);
+        activeClients.push(codeObject);
         res.send({ success : 'success' });
     } else{
         res.send(404);
@@ -60,8 +60,22 @@ exports.matchBroadcastToListener = function(req, res){
 };
 
 
-exports.getActiveCodes = function(){ return activeCodes };
-exports.trash = function(req, res) { res.send({}) };
+exports.trash = function(req, res) {
+    res.send({})
+};
+
+
+exports.getClientByBroadcastId = function(id){
+    var result = false;
+    for(var i=0; i<activeClients.length; i++){
+        if(activeClients[i].broadcastId == id){
+            result = activeClients[i]
+            return result;
+        }
+    };
+
+    return result;
+};
 
 
 var codeLookup = function(code, list){
