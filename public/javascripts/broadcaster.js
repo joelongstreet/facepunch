@@ -51,6 +51,7 @@ var paused = false;
 window.ondevicemotion = function(e){
     if(e.acceleration.x > 10 && paused == false){
         socket.emit('punch', { intensity : e.acceleration.x });
+        paused = true;
         setTimeout(function(){
             paused = false;
         }, 300);
