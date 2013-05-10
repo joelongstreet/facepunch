@@ -26,11 +26,6 @@ $(function(){
 });
 
 
-window.addEventListener('shake', function(e){
-    socket.emit('punch', { intensity : e.intensity });
-}, false);
-
-
 var inputHelper = function(e){
     e.preventDefault();
     window.removeEventListener('keydown', keydownHelper)
@@ -53,4 +48,15 @@ var keydownHelper = function(e){
 
     val += chars[e.keyCode];
     $('#secret').val(val);
+};
+
+
+var paused = false;
+window.ondevicemotion = function(e){
+    if(e.acceleration.x > 10 && paused == false){
+        socket.emit('punch', { intensity : e.acceleration.x });
+        setTimeout(function(){
+            paused = false;
+        }, 300);
+    }
 };
