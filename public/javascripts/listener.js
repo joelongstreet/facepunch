@@ -2,7 +2,7 @@ var socket = io.connect('/');
 var count  = 1;
 
 socket.on('punch', function(data){
-    console.log(data);
+    console.log(JSON.stringify(data));
     //var threshold   = 100;
     //var intensity   = Math.round(data.intensity/threshold);
     var intensity   = Math.floor(Math.random() * 7) + 1;

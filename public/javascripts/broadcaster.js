@@ -21,36 +21,32 @@ $(function(){
         $('.error').hide();
     });
 
-    $('#secret')[0].addEventListener('input', inputHelper);
-    window.addEventListener('keydown', keydownHelper); 
+    // Mobile devices bring up special ui elements during shake events
+    // after form inputs. This prevents default form behavior and therefore
+    // prevents the events from firing.
+    window.addEventListener('keydown', function(e){
+        e.preventDefault();
+        var val = $('#secret').val()
+
+        // If backspace is pressed
+        if (e.keyCode === 8 && val.length) {
+            $('#secret').val(val.slice(0, val.length - 1))
+            return;
+        }
+
+        // If not a number, do nothing
+        if (typeof chars[e.keyCode] === 'undefined') { return; }
+
+        // If it is a character...
+        val += chars[e.keyCode];
+        $('#secret').val(val);
+    }); 
 });
 
 
-var inputHelper = function(e){
-    e.preventDefault();
-    window.removeEventListener('keydown', keydownHelper)
-};
-
-
-var keydownHelper = function(e){
-    e.preventDefault();
-    $('#secret')[0].removeEventListener('input', inputHelper); 
-
-    var val = $('#secret').val()
-
-    if (e.keyCode === 8 && val.length) {
-        $('#secret').val(val.slice(0, val.length - 1))
-        return;
-    }
-
-    // If not a number, do nada
-    if (typeof chars[e.keyCode] === 'undefined') { return; }
-
-    val += chars[e.keyCode];
-    $('#secret').val(val);
-};
-
-
+// Listen for wild flailing punching motions
+// but limit the speed at which their sent to
+// fake a better user experience
 var paused = false;
 window.ondevicemotion = function(e){
     if(e.acceleration.x > 10 && paused == false){
