@@ -20,16 +20,29 @@ socket.on('punch', function(data){
 });
 
 
+// Set up a new file reader to react to the dragged imagery
+var fileReader      = new FileReader()
+fileReader.onload   = function(e){
+    var image = '<img src="' + e.target.result + '" alt="Face" />';
+    $('#victim').empty();
+    $('#victim').append(image);
+};
+
+
 $(function(){
-    // Set up a draggable spot to place images
-    $('#victim').dropzone({
-        url : '/trash',
-        thumbnailWidth : 500,
-        thumbnailHeight : 500
+    // Prevents the page from navigating to the image
+    $('#victim')[0].addEventListener('dragover', function(e){
+        e.preventDefault();
     });
 
+    // React to dragged imagery
+    $('#victim')[0].addEventListener('drop', function(e){
+        e.preventDefault();
+        fileReader.readAsDataURL(e.dataTransfer.files[0])
+    }, false);
+
     // Pair the broadcast client with the server
-    // this timeout has got to go, i would thinkg there should be a ready event?
+    // this timeout has got to go, i would think there should be a ready event?
     setTimeout(function(){
         $.ajax({
             type    : 'GET',

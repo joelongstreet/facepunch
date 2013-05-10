@@ -60,11 +60,6 @@ exports.matchBroadcastToListener = function(req, res){
 };
 
 
-exports.trash = function(req, res) {
-    res.send({})
-};
-
-
 exports.getClientByBroadcastId = function(id){
     var result = false;
     for(var i=0; i<activeClients.length; i++){

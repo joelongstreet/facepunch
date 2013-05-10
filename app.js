@@ -27,7 +27,6 @@ app.get('/listener', routes.listener);
 app.get('/broadcaster', routes.broadcaster);
 app.get('/listener/setSocketId/:socketId/:code', routes.setListenerId);
 app.get('/broadcaster/setSocketId/:socketId/:code', routes.matchBroadcastToListener);
-app.post('/trash', routes.trash);
 
 io.sockets.on('connection', function(socket){
     socket.on('punch', function(data){
