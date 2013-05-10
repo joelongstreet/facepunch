@@ -11,24 +11,37 @@ body
     background          $color-relief url('/images/noise.png') repeat
     font-family         $font-primary
 
+a
+    color               $color-accent
+
 h1
-    margin              50px 0
+    margin              20px 0
     font-size           4.5em
-    text-align          center
+
+h2
+    margin              30px 0
+    font-size           2.5em
+
+h3
+    font-size           2em
+    margin              20px 0
 
 h1, h2, h3, h4, h5, h6
     font-family         $font-accent
     color               $color-accent
     text-shadow         0 1px 0px $color-accent2
+    text-align          center
+    line-height         150%
 
 p
     font-size           1.75em
     color               $color-primary
+    line-height         150%
     text-align          center
 
 .container-fluid
     margin              auto
-    max-width           900px
+    max-width           700px
 
 @import 'listener'
 @import 'broadcaster'

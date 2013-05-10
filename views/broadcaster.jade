@@ -13,13 +13,15 @@ block content
             .loading-graphic
         .row-fluid.form
             .row-fluid
-                p.directions Visit facepunch.joelongstreet.com on a desktop browser and enter the code you receive within the form below.
+                p.directions Visit <a href='http://facepunch.jit.su'>facepunch.jit.su</a> on a desktop browser and enter your special code
             .row-fluid
                 .input-append#form
                     input.span10#secret(type='text')
                     button#start.btn.btn-danger OK
         .row-fluid.ok-go
             h2 Start Punching!!!
+            p Like, literally take your phone and start making flailing punching motions at the screen
         .row-fluid.error
-            h2 There was an error
-            button#retry.btn.btn-danger Retry
+            h3 Looks like the code you entered was wrong...
+            .row-fluid
+                button#retry.btn.btn-inverse.span5 Retry?
