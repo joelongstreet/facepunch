@@ -2,20 +2,26 @@ var socket = io.connect('/');
 var count  = 1;
 
 socket.on('punch', function(data){
-    console.log(JSON.stringify(data));
-    //var threshold   = 100;
-    //var intensity   = Math.round(data.intensity/threshold);
-    var intensity   = Math.floor(Math.random() * 7) + 1;
-    var klass       = 'hit_' + intensity;
+    // We're expecting a number roughly between 10 and 20ish
+    // Normalizing value to be between 1 and 5 for easy css application
+    var intensity = Math.round((data.intensity - 10)/2)
+    if(intensity > 5) { intensity = 5 }
+    if(intensity < 1) { intensity = 1 }
+
+    // CSS class toggling
+    var klass = 'hit_' + intensity;
     $('body').addClass(klass);
     setTimeout(function(){
         $('body').removeClass(klass);
-    }, 100);
+    }, 150);
+
+    // How strange are you?
     $('#count').text(count++);
 });
 
 
 $(function(){
+    // Set up a draggable spot to place images
     $('#victim').dropzone({
         url : '/trash',
         thumbnailWidth : 500,

@@ -1,3 +1,16 @@
+body
+    transition          .1s background-color linear
+    &.hit_1
+        background-color lighten($color-accent, 50%)
+    &.hit_2
+        background-color lighten($color-accent, 20%)
+    &.hit_3
+        background-color $color-accent
+    &.hit_4
+        background-color darken($color-accent, 40%)
+    &.hit_5
+        background-color darken($color-accent, 80%)
+
 #listener
     #victim
         position            relative
