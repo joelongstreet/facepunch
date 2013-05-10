@@ -21,3 +21,8 @@ block content
         p Your special code is
         .row-fluid.code-info
             #code.span2.offset5= code
+
+    - for (var i=1; i<9; i++) {
+        audio(id="sound_#{i}")
+            source(src="/sounds/hit_#{i}.wav", type="audio/wav")
+    - }

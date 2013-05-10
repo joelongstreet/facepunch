@@ -15,6 +15,11 @@ socket.on('punch', function(data){
         $('body').removeClass(klass);
     }, 150);
 
+    // Play a random punching noise
+    var rando = Math.floor(Math.random()*8) + 1
+    var audio = $('#sound_' + rando);
+    audio[0].play();
+
     // How strange are you?
     $('#count').text(count++);
 });
