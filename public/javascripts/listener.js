@@ -120,7 +120,6 @@ window.fbAsyncInit = function(){
 
 
 var buildFriendSelector = function(friends){
-    var friends_array = [];
     var friends_name  = [];
     var selector_template = $(
         '<div id="friend_selector">' +
@@ -131,7 +130,6 @@ var buildFriendSelector = function(friends){
         '</div>');
 
     for(var key in friends){
-        friends_array.push(friends[key]);
         friends_name.push(friends[key].name);
         var friend_template =
             '<li class="friend">' +
@@ -140,17 +138,54 @@ var buildFriendSelector = function(friends){
             '</li>';
 
         selector_template.find('#friends').append(friend_template);
-    }
+    };
 
+    var findFriendByName = function(name){
+        for(var key in friends){
+            if(friends[key].name == name){
+                return friends[key];
+            }
+        }
+    };
+
+    var requestFacebookPhoto = function(id, next){
+        var earl = 'http://graph.facebook.com/' + id + '/picture?type=square'
+        $.ajax({
+            type    : 'GET',
+            url     : earl,
+            success : function(data){
+                if(next){ next(data); }
+            },
+            error   : function(err){
+                alert('Couldn\'t Get that Facebook Photo :(');
+            }
+        });
+    };
+
+    var addPhotoToDom = function(src){
+        $('#victim').html('<img src="' + src + '" />');
+    };
+
+    $('#friend-picker').find('.modal-body').empty()
     $('#friend-picker').find('.modal-body').append(selector_template);
+    $('#friend-picker').find('li.friend').click(function(){
+        var friend = findFriendByName($(this).text());
+        addPhotoToDom(friend.picture.data.url);
+        requestFacebookPhoto(friend.id, function(src){
+            addPhotoToDom(src);
+        });
+        $('#friend-picker').modal('hide');
+    });
+
     $('#friend-picker').find('input').typeahead({
         source  : friends_name,
         updater : function(item){
-            for(var key in friends){
-                if(friends[key].name == item){
-                    console.log(friends[key]);
-                }
-            }
+            var friend = findFriendByName(item);
+            addPhotoToDom(friend.picture.data.url);
+            requestFacebookPhoto(friend.id, function(src){
+                addPhotoToDom(src);
+            });
+            $('#friend-picker').modal('hide');
         }
     });
 };
