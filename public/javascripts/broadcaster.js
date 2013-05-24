@@ -21,6 +21,12 @@ $(function(){
         $('.error').hide();
     });
 
+    // Allow touch events to fire punches. Simplifies testing and some people
+    // are just fucking lazy
+    $('.ok-go')[0].addEventListener('touchstart', function(){
+        socket.emit('punch', { intensity : 20 });
+    });
+
     // Mobile devices bring up special ui elements during shake events
     // after form inputs. This prevents default form behavior and therefore
     // prevents the events from firing.
