@@ -17,6 +17,9 @@ block content
         .row-fluid
             #victim.box.span6.offset3
                 p Drag Victim Here
+                a#facebook-kinect.btn.social.btn-primary(href='#')
+                    i.icon-facebook
+                    | +
 
         .row-fluid.social
             a#twitter_share.btn.social.btn-info(href='#')
@@ -30,7 +33,15 @@ block content
         .row-fluid.code-info
             #code.span2.offset5= code
 
+
     - for (var i=1; i<9; i++) {
         audio(id="sound_#{i}")
             source(src="/sounds/hit_#{i}.wav", type="audio/wav")
     - }
+
+
+    #friend-picker.modal.hide.fade
+        .modal-header
+            button.close(type='button', data-dismiss='modal') &times;
+            h3 Find a Friend
+        .modal-body

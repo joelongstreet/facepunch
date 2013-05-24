@@ -21,7 +21,6 @@ body
         margin-bottom       35px
         outline             7px solid $color-accent
         height              350px
-        position            relative
 
         &:before
             content         ''
@@ -59,6 +58,16 @@ body
         background          url('/images/twitter.png') no-repeat
     .icon-facebook
         background          url('/images/facebook.png') no-repeat
+    #facebook-kinect
+        border-radius       0
+        position            absolute
+        bottom              0
+        left                0
+        margin              0
+        padding             10px 0
+        border-left         0
+        border-right        0
+        width               100%
 
 
     // Code Stuff
@@ -69,3 +78,41 @@ body
         text-align          center
         color               $color-accent
         text-shadow         0 1px 0px $color-accent2
+
+
+// Friend Picker
+#friend-picker
+    background              $color-relief url('/images/noise.png') repeat
+    .modal-header
+        border-bottom       1px solid darken($color-relief, 10)
+    li.friend
+        overflow            hidden
+        margin              0 -15px
+        list-style-type     none
+        padding             5px 0
+        &:hover
+            background-color darken($color-relief, 10)
+            cursor          pointer
+        img
+            margin-left     15px
+            margin-right    15px
+            float           left
+            border          3px solid $color-accent
+            background-color $color-accent2
+            padding         3px
+        h4
+            text-align      left
+            font-family     $font-primary
+            color           $color-primary
+            text-shadow     none
+    input
+        width               97%
+        border              1px solid darken($color-relief, 10)
+        background-color    lighten($color-relief, 10)
+    .dropdown-menu
+        border              1px solid darken($color-relief, 10)
+        background-color    lighten($color-relief, 10)
+        .active
+            a
+                background-image linear-gradient(to bottom, $color-primary, darken($color-primary, 10));
+                background-color $color-primary

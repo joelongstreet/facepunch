@@ -75,6 +75,24 @@ $(function(){
         return false
     });
 
+    // If not registered via facebook, force an authentication
+    // Then get all their friends and naked pictures
+    $('#facebook-kinect').click(function(e){
+        FB.getLoginStatus(function(response) {
+            if(response.status != 'connected'){
+                FB.login(function(res){
+                    console.log(res);
+                });
+            } else{
+                FB.api('/me/friends?fields=name,picture', function(res){
+                    buildFriendSelector(res.data);
+                });
+
+                $('#friend-picker').modal()
+            }
+        });
+    });
+
     // Pair the broadcast client with the server
     // this timeout has got to go, i would think there should be a ready event?
     setTimeout(function(){
@@ -92,12 +110,60 @@ $(function(){
 });
 
 
+// Set up Facebook API
+window.fbAsyncInit = function(){
+    FB.init({
+        appId  : 213385565452548,
+        status : true
+    });
+};
+
+
+var buildFriendSelector = function(friends){
+    var friends_array = [];
+    var friends_name  = [];
+    var selector_template = $(
+        '<div id="friend_selector">' +
+            '<form class="form-horizontal">' +
+                '<input type="text" id="friend-email" placeholder="Friend Name" />' +
+            '</form>' +
+            '<div id="friends"></div>' +
+        '</div>');
+
+    for(var key in friends){
+        friends_array.push(friends[key]);
+        friends_name.push(friends[key].name);
+        var friend_template =
+            '<li class="friend">' +
+                '<img src="' + friends[key].picture.data.url + '" alt="' + friends[key].name + ' "title=' + friends[key].name + '" />' +
+                '<h4>' + friends[key].name + '</h4>' +
+            '</li>';
+
+        selector_template.find('#friends').append(friend_template);
+    }
+
+    $('#friend-picker').find('.modal-body').append(selector_template);
+    $('#friend-picker').find('input').typeahead({
+        source  : friends_name,
+        updater : function(item){
+            for(var key in friends){
+                if(friends[key].name == item){
+                    console.log(friends[key]);
+                }
+            }
+        }
+    });
+};
+
+
+// The social popup window for sharing twitter and facebook
 var popUpWindow = function(earl, title){
     var left = (window.screen.width / 2) - 260;
     window.open(earl, title, 'height=270, width=500, scrollbars=no, screenX=' + left + ', screenY=100');
 };
 
 
+// Get a random share message
 var generateShare = function(){
     var rando = Math.floor(Math.random()*shares.length)
     var item  = shares[rando];
