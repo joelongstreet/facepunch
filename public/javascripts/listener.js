@@ -43,9 +43,7 @@ socket.on('restart', function(data){
 // Set up a new file reader to react to the dragged imagery
 var fileReader      = new FileReader()
 fileReader.onload   = function(e){
-    var image = '<img src="' + e.target.result + '" alt="Face" />';
-    $('#victim').empty();
-    $('#victim').append(image);
+    $('#victim').find('img').attr('src', e.target.result);
 };
 
 
@@ -149,12 +147,13 @@ var buildFriendSelector = function(friends){
     };
 
     var requestFacebookPhoto = function(id, next){
-        var earl = 'http://graph.facebook.com/' + id + '/picture?type=square'
+        var earl = 'http://graph.facebook.com/' + id + '/picture?type=square';
         $.ajax({
             type    : 'GET',
             url     : earl,
+            dataType : 'jpg',
             success : function(data){
-                if(next){ next(data); }
+                if(next){ next('data:image/jpeg;base64, ' + data); }
             },
             error   : function(err){
                 alert('Couldn\'t Get that Facebook Photo :(');
@@ -163,7 +162,7 @@ var buildFriendSelector = function(friends){
     };
 
     var addPhotoToDom = function(src){
-        $('#victim').html('<img src="' + src + '" />');
+        $('#victim').find('img').attr('src', src);
     };
 
     $('#friend-picker').find('.modal-body').empty()
