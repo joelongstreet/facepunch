@@ -57,3 +57,8 @@ window.ondevicemotion = function(e){
         }, 300);
     }
 };
+
+
+socket.on('restart', function(data){
+    location.reload();
+});

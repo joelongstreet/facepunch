@@ -28,10 +28,18 @@ app.get('/broadcaster', routes.broadcaster);
 app.get('/listener/setSocketId/:socketId/:code', routes.setListenerId);
 app.get('/broadcaster/setSocketId/:socketId/:code', routes.matchBroadcastToListener);
 
+
 io.sockets.on('connection', function(socket){
+
     socket.on('punch', function(data){
         var client = routes.getClientByBroadcastId(socket.id);
         io.sockets.socket(client.listenerId).emit('punch', data);
+    });
+
+    socket.on('disconnect', function(data){
+        var client = routes.getClientByBroadcastId(socket.id);
+        io.sockets.socket(client.listenerId).emit('restart');
+        io.sockets.socket(client.broadcasterId).emit('restart');
     });
 });
 

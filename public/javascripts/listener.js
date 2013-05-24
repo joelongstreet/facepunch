@@ -32,6 +32,14 @@ socket.on('punch', function(data){
 });
 
 
+// Sometimes the phones screen can go to sleep if it doesn't get any action.
+// This just forces the page to reload
+socket.on('restart', function(data){
+    alert('Gah! I lost the connection. Your phone probably went to sleep or you visited another web page. Don\'t worry, I\'m refreshing everything');
+    location.reload()
+});
+
+
 // Set up a new file reader to react to the dragged imagery
 var fileReader      = new FileReader()
 fileReader.onload   = function(e){
