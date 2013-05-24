@@ -73,24 +73,6 @@ $(function(){
         return false
     });
 
-    // If not registered via facebook, force an authentication
-    // Then get all their friends and naked pictures
-    $('#facebook-kinect').click(function(e){
-        FB.getLoginStatus(function(response) {
-            if(response.status != 'connected'){
-                FB.login(function(res){
-                    console.log(res);
-                });
-            } else{
-                FB.api('/me/friends?fields=name,picture', function(res){
-                    buildFriendSelector(res.data);
-                });
-
-                $('#friend-picker').modal()
-            }
-        });
-    });
-
     // Pair the broadcast client with the server
     // this timeout has got to go, i would think there should be a ready event?
     setTimeout(function(){
@@ -106,88 +88,6 @@ $(function(){
         });
     }, 500);
 });
-
-
-// Set up Facebook API
-window.fbAsyncInit = function(){
-    FB.init({
-        appId  : 213385565452548,
-        status : true
-    });
-};
-
-
-var buildFriendSelector = function(friends){
-    var friends_name  = [];
-    var selector_template = $(
-        '<div id="friend_selector">' +
-            '<form class="form-horizontal">' +
-                '<input type="text" id="friend-email" placeholder="Friend Name" />' +
-            '</form>' +
-            '<div id="friends"></div>' +
-        '</div>');
-
-    for(var key in friends){
-        friends_name.push(friends[key].name);
-        var friend_template =
-            '<li class="friend">' +
-                '<img src="' + friends[key].picture.data.url + '" alt="' + friends[key].name + ' "title=' + friends[key].name + '" />' +
-                '<h4>' + friends[key].name + '</h4>' +
-            '</li>';
-
-        selector_template.find('#friends').append(friend_template);
-    };
-
-    var findFriendByName = function(name){
-        for(var key in friends){
-            if(friends[key].name == name){
-                return friends[key];
-            }
-        }
-    };
-
-    var requestFacebookPhoto = function(id, next){
-        var earl = 'http://graph.facebook.com/' + id + '/picture?type=square';
-        $.ajax({
-            type    : 'GET',
-            url     : earl,
-            dataType : 'jpg',
-            success : function(data){
-                if(next){ next('data:image/jpeg;base64, ' + data); }
-            },
-            error   : function(err){
-                alert('Couldn\'t Get that Facebook Photo :(');
-            }
-        });
-    };
-
-    var addPhotoToDom = function(src){
-        $('#victim').find('img').attr('src', src);
-    };
-
-    $('#friend-picker').find('.modal-body').empty()
-    $('#friend-picker').find('.modal-body').append(selector_template);
-    $('#friend-picker').find('li.friend').click(function(){
-        var friend = findFriendByName($(this).text());
-        addPhotoToDom(friend.picture.data.url);
-        requestFacebookPhoto(friend.id, function(src){
-            addPhotoToDom(src);
-        });
-        $('#friend-picker').modal('hide');
-    });
-
-    $('#friend-picker').find('input').typeahead({
-        source  : friends_name,
-        updater : function(item){
-            var friend = findFriendByName(item);
-            addPhotoToDom(friend.picture.data.url);
-            requestFacebookPhoto(friend.id, function(src){
-                addPhotoToDom(src);
-            });
-            $('#friend-picker').modal('hide');
-        }
-    });
-};
 
 
 // The social popup window for sharing twitter and facebook
