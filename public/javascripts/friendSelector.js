@@ -55,8 +55,9 @@ var buildFriendSelector = function(friends){
     };
 
     // Rebuild the modal and append all your favorite friends
-    $('#friend-picker').find('.modal-body').empty()
+    $('#friend-picker').find('.modal-body').empty();
     $('#friend-picker').find('.modal-body').append(selector_template);
+    $('#friend-picker').find('input').focus();
 
     // Utility to find a friend by their name
     var findFriendByName = function(name){
@@ -85,13 +86,20 @@ var buildFriendSelector = function(friends){
     // Some schweet animations when appending new items to the stage
     var addFBVictimToStageByName = function(name){
         var friend = findFriendByName(name);
-        $('#victim').find('.img').fadeOut();
+        $('#victim').find('.img').css('background-image', 'url(/images/loader.gif)')
+        $('#victim').addClass('loading');
         requestFacebookPhoto(friend.id, function(src){
-            $('#victim').find('.img').fadeIn();
-            $('#victim').find('.img').css('background-image', 'url(' + src + ')');
+            $('#victim').find('.img').fadeOut('fast', function(){
+                $('#victim').removeClass('loading');
+                // This helps ensure the image is loaded. It's not perfect, but whatever
+                setTimeout(function(){
+                    $('#victim').find('.img').css('background-image', 'url(' + src + ')');
+                    $('#victim').find('.img').fadeIn('fast');
+                }, 100);
+            });
         });
         $('#friend-picker').modal('hide');
-    }
+    };
 
     // When clicking on a friend from the friend-picker
     // put their photo on the stage
