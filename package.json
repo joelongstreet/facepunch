@@ -9,7 +9,8 @@
     "express": "3.1.1",
     "jade": "0.30.0",
     "stylus": "~0.32.1",
-    "socket.io": "~0.9.14"
+    "socket.io": "~0.9.14",
+    "request": "~2.21.0"
   },
   "subdomain": "facepunch",
   "engines": {

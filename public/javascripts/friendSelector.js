@@ -67,15 +67,14 @@ var buildFriendSelector = function(friends){
         }
     };
 
-    // Reach out to facebook and get the large version of the profile picture
+    // Reach out to my server and get the large version of the profile picture
     var requestFacebookPhoto = function(id, next){
-        var earl = 'http://graph.facebook.com/' + id + '/picture?type=square';
+        var earl = '/getFBPhotoURL/' + id;
         $.ajax({
-            type        : 'GET',
             url         : earl,
-            dataType    : 'jpg',
+            type        : 'GET',
             success     : function(data){
-                if(next){ next('data:image/jpeg;base64, ' + data); }
+                if(next){ next(data.url); }
             },
             error       : function(err){
                 alert('Couldn\'t Get that Facebook Photo :(');

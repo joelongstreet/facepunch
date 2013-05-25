@@ -1,3 +1,5 @@
+var request = require('request');
+
 var pendingClients  = [];
 var activeClients   = [];
 
@@ -34,7 +36,7 @@ exports.setListenerId = function(req, res){
     var codeObject = codeLookup(req.params.code, pendingClients);
     if(codeObject){
         codeObject.listenerId = req.params.socketId;
-        res.send({ success : 'I am ready for you to enter the CODEZ' })
+        res.send({ success : 'I am ready for you to enter the CODEZ' });
     } else{
         res.send(404);
     }
@@ -70,6 +72,18 @@ exports.getClientByBroadcastId = function(id){
     };
 
     return result;
+};
+
+
+// This needs to be on the server as the client is not able to determine
+// the redirect url
+exports.getFBPhotoURL = function(req, res){
+    var earl = 'http://graph.facebook.com/' + req.params.id + '/picture?type=large';
+    request(earl, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send({ url : response.request.uri.href });
+        }
+    });
 };
 
 

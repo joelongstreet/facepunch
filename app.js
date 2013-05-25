@@ -27,6 +27,7 @@ app.get('/listener', routes.listener);
 app.get('/broadcaster', routes.broadcaster);
 app.get('/listener/setSocketId/:socketId/:code', routes.setListenerId);
 app.get('/broadcaster/setSocketId/:socketId/:code', routes.matchBroadcastToListener);
+app.get('/getFBPhotoURL/:id', routes.getFBPhotoURL);
 
 
 io.sockets.on('connection', function(socket){
