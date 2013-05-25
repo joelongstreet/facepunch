@@ -1,5 +1,7 @@
 body
     transition          .1s background-color linear
+    background          url('/images/noise.png') repeat, url('/images/background-left.svg') no-repeat top left, url('/images/background-right.svg') no-repeat top right
+    background-color    $color-relief
     &.hit_1
         background-color lighten($color-accent, 50%)
     &.hit_2
