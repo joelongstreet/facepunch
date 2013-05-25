@@ -85,8 +85,15 @@ body
 // Friend Picker
 #friend-picker
     background              $color-relief url('/images/noise.png') repeat
+
     .modal-header
         border-bottom       1px solid darken($color-relief, 10)
+    .modal-body
+        max-height          none
+    #friends
+        max-height          400px
+        overflow-y          auto
+        overflow-x          hidden
     li.friend
         overflow            hidden
         margin              0 -15px
