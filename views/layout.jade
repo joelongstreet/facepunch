@@ -11,8 +11,10 @@ html
         script(src='http://code.jquery.com/jquery-2.0.0.min.js')
         script(src='/javascripts/bootstrap.js')
 
+        - var bodyId = '';
         block head
-    body
+
+    body(id='#{bodyId}')
         block content
 
         include analytics.html
