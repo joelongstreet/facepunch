@@ -82,14 +82,21 @@ var buildFriendSelector = function(friends){
         });
     };
 
+    // Some schweet animations when appending new items to the stage
+    var addFBVictimToStageByName = function(name){
+        var friend = findFriendByName(name);
+        $('#victim').find('.img').fadeOut();
+        requestFacebookPhoto(friend.id, function(src){
+            $('#victim').find('.img').fadeIn();
+            $('#victim').find('.img').css('background-image', 'url(' + src + ')');
+        });
+        $('#friend-picker').modal('hide');
+    }
+
     // When clicking on a friend from the friend-picker
     // put their photo on the stage
     $('#friend-picker').find('li.friend').click(function(){
-        var friend = findFriendByName($(this).text());
-        requestFacebookPhoto(friend.id, function(src){
-            $('#victim').find('img').attr('src', src);
-        });
-        $('#friend-picker').modal('hide');
+        addFBVictimToStageByName($(this).text());
     });
 
     // Create a bootstrap typeahead, when a friend is selected
@@ -97,11 +104,7 @@ var buildFriendSelector = function(friends){
     $('#friend-picker').find('input').typeahead({
         source  : friends_names,
         updater : function(item){
-            var friend = findFriendByName(item);
-            requestFacebookPhoto(friend.id, function(src){
-                $('#victim').find('img').attr('src', src);
-            });
-            $('#friend-picker').modal('hide');
+            addFBVictimToStageByName(item);
         }
     });
 };
