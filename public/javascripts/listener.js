@@ -43,7 +43,7 @@ socket.on('restart', function(data){
 // Set up a new file reader to react to the dragged imagery
 var fileReader      = new FileReader()
 fileReader.onload   = function(e){
-    $('#victim').find('img').attr('src', e.target.result);
+    $('#victim').find('.img').css({'backgroundImage' : 'url(' + e.target.result + ')'});
 };
 
 
