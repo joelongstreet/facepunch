@@ -1,5 +1,6 @@
 var socket = io.connect('/');
 var count  = 1;
+var ouches = ['Ouch!', 'Gah!', 'Umph!', 'Pow!', 'Whomp!', 'Thud!', 'Smack!', 'Slap!', 'Kapow!', 'Crash!', 'Bam!'];
 var shares = [
     'I just facepunched someone *** times... it could have been you',
     'My fist hurts after the beating I just gave. *** punches',
@@ -16,7 +17,7 @@ socket.on('punch', function(data){
     if(intensity < 1) { intensity = 1 }
 
     // CSS class toggling
-    var klass = 'hit_' + intensity;
+    var klass = 'hit hit_' + intensity;
     $('body').addClass(klass);
     setTimeout(function(){
         $('body').removeClass(klass);
@@ -26,6 +27,10 @@ socket.on('punch', function(data){
     var rando = Math.floor(Math.random()*8) + 1
     var audio = $('#sound_' + rando);
     audio[0].play();
+
+    // Show a batman style message
+    var kerplunk = ouches[Math.floor(Math.random()*ouches.length)];
+    $('#victim').find('p').text(kerplunk);
 
     // How strange are you?
     $('#count').text(count++);

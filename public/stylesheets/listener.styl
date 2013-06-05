@@ -12,10 +12,17 @@ body#listen
         background-color darken($color-accent, 40%)
     &.hit_5
         background-color darken($color-accent, 80%)
+    &.hit
+        #victim
+            background-color        white
+            .img
+                opacity             0
+
 
 #listener
     // Image Definition
     #victim
+        transition          .1s opacity linear
         position            relative
         background-color    $color-relief
         border              5px solid $color-accent2
@@ -44,8 +51,11 @@ body#listen
             top             0
 
         .img
+            transition      .1s opacity linear
             position        absolute
+            opacity         1
             background-size cover
+            background-color transparent
             width           100%
             height          100%
             top             0
