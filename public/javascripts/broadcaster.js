@@ -65,7 +65,7 @@ $(function(){
             }
         };
     } else{
-        $('#instructions').html('Sorry, your device doesn\'t have an accelerometer available in the web browser :( <br /><br /> You\'ll have to tap to punch.')
+        $('#instructions').html('Sorry, your web browser does not provide an accessible accelerometer :( <br /><br /> You\'ll have to tap to punch.')
     }
 });
 
