@@ -46,23 +46,28 @@ $(function(){
         // If it is a character...
         val += chars[e.keyCode];
         $('#secret').val(val);
-    }); 
-});
+    });
 
 
-// Listen for wild flailing punching motions
-// but limit the speed at which their sent to
-// fake a better user experience
-var paused = false;
-window.ondevicemotion = function(e){
-    if(e.acceleration.x > 10 && paused == false){
-        socket.emit('punch', { intensity : e.acceleration.x });
-        paused = true;
-        setTimeout(function(){
-            paused = false;
-        }, 300);
+    // Test for accelerometer support
+    if(window.DeviceMotionEvent){
+        // Listen for wild flailing punching motions
+        // but limit the speed at which their sent to
+        // fake a better user experience
+        var paused = false;
+        window.ondevicemotion = function(e){
+            if(e.acceleration.x > 10 && paused == false){
+                socket.emit('punch', { intensity : e.acceleration.x });
+                paused = true;
+                setTimeout(function(){
+                    paused = false;
+                }, 300);
+            }
+        };
+    } else{
+        $('#instructions').html('Sorry, your device doesn\'t have an accelerometer available in the web browser :( <br /><br /> You\'ll have to tap to punch.')
     }
-};
+});
 
 
 socket.on('restart', function(data){
