@@ -66,14 +66,14 @@ $(function(){
 
     // Share on Twitter
     $('#twitter_share').click(function(e){
-        var tweet_earl = 'https://twitter.com/intent/tweet?hashtags=facepunch&original_referer=http://facepunch.jit.su&text=' + generateShare() + '&url=http://facepunch.jit.su';
+        var tweet_earl = 'https://twitter.com/intent/tweet?hashtags=facepunch&original_referer=http://facepunch.org&text=' + generateShare() + '&url=http://facepunch.jit.su';
         popUpWindow(tweet_earl, 'Twitter');
         return false
     });
 
     // Share on Facebook
     $('#facebook_share').click(function(){
-        var fb_earl = 'https://www.facebook.com/sharer/sharer.php?s=100&p[title]=facepunch&p[summary]=' + generateShare() + '&p[url]=http://facepunch.jit.su'
+        var fb_earl = 'https://www.facebook.com/sharer/sharer.php?s=100&p[title]=facepunch&p[summary]=' + generateShare() + '&p[url]=http://facepunch.org'
         popUpWindow(fb_earl, 'Facebook');
         return false
     });
