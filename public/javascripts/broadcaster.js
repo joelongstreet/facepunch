@@ -52,8 +52,8 @@ $(function(){
     // Test for accelerometer support
     if(window.DeviceMotionEvent){
         // Listen for wild flailing punching motions
-        // but limit the speed at which their sent to
-        // fake a better user experience
+        // but limit the speed at which they're sent
+        // in order to fake a better user experience
         var paused = false;
         window.ondevicemotion = function(e){
             if(e.acceleration.x > 10 && paused == false){
