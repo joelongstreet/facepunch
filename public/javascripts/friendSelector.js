@@ -22,9 +22,11 @@ $(function(){
 
 
 // Set up Facebook API
+var fbAppId = 188485814650717;
+if(window.location.href.indexOf('localhost') != -1){ fbAppId = 514011551980705 }
 window.fbAsyncInit = function(){
     FB.init({
-        appId  : 213385565452548,
+        appId  : fbAppId,
         status : true
     });
 };
