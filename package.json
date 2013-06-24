@@ -2,6 +2,10 @@
   "name": "facepunch",
   "version": "0.0.3",
   "private": true,
+  "domains" : [
+    "facepunch.org",
+    "www.facepunch.org"
+  ],
   "scripts": {
     "start": "node app.js"
   },
