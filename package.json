@@ -1,8 +1,8 @@
 {
   "name": "facepunch",
-  "version": "0.0.3",
+  "version": "0.0.9",
   "private": true,
-  "domains" : [
+  "domains": [
     "facepunch.org",
     "www.facepunch.org"
   ],
