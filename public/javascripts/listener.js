@@ -66,7 +66,7 @@ $(function(){
 
     // Share on Twitter
     $('#twitter_share').click(function(e){
-        var tweet_earl = 'https://twitter.com/intent/tweet?hashtags=facepunch&original_referer=http://facepunch.org&text=' + generateShare() + '&url=http://facepunch.jit.su';
+        var tweet_earl = 'https://twitter.com/intent/tweet?hashtags=facepunch&original_referer=http://facepunch.org&text=' + generateShare() + '&url=http://facepunch.org';
         popUpWindow(tweet_earl, 'Twitter');
         return false
     });
