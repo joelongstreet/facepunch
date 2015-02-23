@@ -1,11 +1,6 @@
 {
   "name": "facepunch",
   "version": "0.0.91",
-  "private": true,
-  "domains": [
-    "facepunch.org",
-    "www.facepunch.org"
-  ],
   "scripts": {
     "start": "node app.js"
   },
@@ -16,8 +11,5 @@
     "socket.io": "~0.9.14",
     "request": "~2.21.0"
   },
-  "subdomain": "facepunch",
-  "engines": {
-    "node": "0.8.x"
-  }
+  "subdomain": "facepunch"
 }
