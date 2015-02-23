@@ -2,6 +2,8 @@ body#listen
     transition          .1s background-color linear
     background          url('/images/noise.png') repeat, url('/images/background-left.svg') no-repeat top left, url('/images/background-right.svg') no-repeat top right
     background-color    $color-relief
+    background-size     cover
+    height              100%
     &.hit_1
         background-color lighten($color-accent, 50%)
     &.hit_2
@@ -20,7 +22,11 @@ body#listen
 
 
 #listener
+    height                  100%
     // Image Definition
+    p.background
+        background-color    $color-relief
+
     #victim
         transition          .1s opacity linear
         position            relative
