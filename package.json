@@ -10,6 +10,5 @@
     "stylus": "~0.32.1",
     "socket.io": "~0.9.14",
     "request": "~2.21.0"
-  },
-  "subdomain": "facepunch"
+  }
 }
