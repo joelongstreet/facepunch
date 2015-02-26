@@ -1,11 +1,11 @@
 var express = require('express');
 var path    = require('path');
 var app     = express()
-var server  = app.listen(3000);
+var server  = app.listen(process.env.PORT || 3000);
 var io      = require('socket.io').listen(server);
 var routes  = require('./routes');
 
-io.set('log level', 1); 
+io.set('log level', 1);
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
